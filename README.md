@@ -15,6 +15,56 @@ _Note: No longer uses the *beta* and totally broken jquery template. Long live h
 
 For an idea of what this does open  jsongraal/jsongraal.html in your favorite browser
 
+## USAGE Example
+
+	<!DOCTYPE html> 
+	<html> 
+	<head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
+	  <title>My Calendar - Linking Demo</title>
+	  <link type="text/css" rel="Stylesheet" href="jsongraal.css" />
+
+	  <script type="text/javascript" src="../vendor/jquery.js"></script>
+	  <script type="text/javascript" src="../vendor/handlebars.js"></script>
+	  <script>module={};</script>
+
+	  <script type="text/javascript" src="../vendor/js-traverse/index.js"></script>
+	  <script type="text/javascript" src="jsongraal.js"></script>
+	  <script type="text/javascript" src="parseJsonSchema.js"></script>
+	                                                                               
+	  <script type="text/javascript" src="../schemas/poco/schema.js"></script>
+	  <script type="text/javascript" src="../schemas/poco/sample_data.js"></script>
+	
+	<script>
+	 // initial view on load
+	 jQuery( function( $ ){	
+	 schema =  poco;
+	 	 
+	 myJsonGraal = new JsonGraal(
+	   {
+	    schema'         : schema,
+	    elements_root_class'    :    "entries",
+	    elements_class'         :    "entry",
+	    insert_element': "#insert",
+	    save_element': "#save",
+	    load_element': "#load",
+	    });
+	 myJsonGraal.entries(entries);
+	 myJsonGraal.bindToDom(
+	   );
+	 });
+	 </script>
+	</head>
+	<body>
+	<div class="entries">
+	</div>
+	<input type="button" id="insert" value="Insert new entry" /><input type="button" id="save" value="show > " /><input type="button" id="load" value="load <" />
+	<pre id="results">
+	</pre>
+	
+	</body>
+	</html>
+
 ## The reasons for this project are two fold: 
 
 1. I wanted to create a form that can respect 100% the Portable Contacts scheme, and I wanted it as generic and generated as possible. This is for the Turbulences projects, but should be useful anywhere.

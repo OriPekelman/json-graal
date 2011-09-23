@@ -20,64 +20,65 @@ Basically this takes a configuration of the types of fields there will be in a f
 Currently it annotates both the JSON structure and the DOM so we can map between both. We use traverse.js for that.
 
 Currently the depth is not arbitray, ie you can only have a structure like this
-`|-Single Field
-|
-|-Single Field
-|
----Group of Fields
-|    |-Single Field
-|    |-Single Field
-|
----Group of Fields
-|    |-Single Field
-|    |-Single Field
-|
----Repeating Group of Fields
-|    |-Single Field
-|    |-Single Field`
+
+	|-Single Field
+	|
+	|-Single Field
+	|
+	---Group of Fields
+	|    |-Single Field
+	|    |-Single Field
+	|
+	---Group of Fields
+	|    |-Single Field
+	|    |-Single Field
+	|
+	---Repeating Group of Fields
+	|    |-Single Field
+	|    |-Single Field
 
 So you can generate a Json like this one:
 
-`"entry": [
-  {
-    "id": "309252405",
-    "published": "2007-11-05T17:37:27Z",
-    "updated": "2009-09-18T15:15:33Z",
-    "displayName": "OriPekelman",
-    "birthday": "0000-01-19",
-    "emails": [
-      {
-        "value": "ori@af83.com",
-        "type": "work"
-      }
-    ],
-    "name": {
-      "formatted": "Mr. Ori Pekelman",
-      "familyName": "Pekelman",
-      "givenName": "Ori",
-      "honorificPrefix": "Mr.",
-    },
-    "organizations": [
-      {
-        "name": "AF83"
-      }
-    ],
-    "urls": [
-      {
-        "value": "http:\/\/www.af83.com\/users\/ori\/@self",
-        "type": "JsonGraal"
-      },
-      {
-        "value": "http:\/\/www.af83.com",
-        "type": "Homepage"
-      },
-      {
-        "value": "http:\/\/dev.af83.com",
-        "type": "blog",
-        "primary": true
-      },
-    ]
-  },`
+	"entry": [
+	{
+	  "id": "309252405",
+	  "published": "2007-11-05T17:37:27Z",
+	  "updated": "2009-09-18T15:15:33Z",
+	  "displayName": "OriPekelman",
+	  "birthday": "0000-01-19",
+	  "emails": [
+	    {
+	      "value": "ori@af83.com",
+	      "type": "work"
+	    }
+	  ],
+	  "name": {
+	    "formatted": "Mr. Ori Pekelman",
+	    "familyName": "Pekelman",
+	    "givenName": "Ori",
+	    "honorificPrefix": "Mr.",
+	  },
+	  "organizations": [
+	    {
+	      "name": "AF83"
+	    }
+	  ],
+	  "urls": [
+	    {
+	      "value": "http:\/\/www.af83.com\/users\/ori\/@self",
+	      "type": "JsonGraal"
+	    },
+	    {
+	      "value": "http:\/\/www.af83.com",
+	      "type": "Homepage"
+	    },
+	    {
+	      "value": "http:\/\/dev.af83.com",
+	      "type": "blog",
+	      "primary": true
+	    },
+	  ]
+	  },
 
 ## What is Json-Schema?
 
@@ -93,140 +94,142 @@ see [[http://tools.ietf.org/html/draft-zyp-json-schema-03]]
 
 ## Give us an example
 ### Geo
-`{
+	{
 	"description" : "A geographical coordinate",
 	"type" : "object",
 	"properties" : {
 		"latitude" : { "type" : "number" },
 		"longitude" : { "type" : "number" }
 	}
-}`
+	}
 
 So this document is conforming:
 
 `{"latitude":23.12,"longitude":43.1}`
 
 and this code will not return validation errors:
-`latlong= {};
-latlong.latitude = 23.12;
-latlong.longitude = 43.1;
-errors = jsonschema.validate (JSON.stringify(latlong));`
+	latlong= {};
+	latlong.latitude = 23.12;
+	latlong.longitude = 43.1;
+	errors = jsonschema.validate (JSON.stringify(latlong));
 
 ## Give us a better example 
 ### Card
-`{
-   "description":"A representation of a person, company, organization, or place",
-   "type":"object",
-   "properties":{
-      "fn":{
-         "description":"Formatted Name",
-         "type":"string"
-      },
-      "familyName":{
-         "type":"string",
-         "required":true
-      },
-      "givenName":{
-         "type":"string",
-         "required":true
-      },
-      "additionalName":{
-         "type":"array",
-         "items":{
-            "type":"string"
-         }
-      },
-      "honorificPrefix":{
-         "type":"array",
-         "items":{
-            "type":"string"
-         }
-      },
-      "honorificSuffix":{
-         "type":"array",
-         "items":{
-            "type":"string"
-         }
-      },
-      "nickname":{
-         "type":"string"
-      },
-      "url":{
-         "type":"string",
-         "format":"url"
-      },
-      "email":{
-         "type":"object",
-         "properties":{
-            "type":{
-               "type":"string"
-            },
-            "value":{
-               "type":"string",
-               "format":"email"
-            }
-         }
-      },
-      "tel":{
-         "type":"object",
-         "properties":{
-            "type":{
-               "type":"string"
-            },
-            "value":{
-               "type":"string",
-               "format":"phone"
-            }
-         }
-      },
-      "adr":{"$ref" : "http://json-schema.org/address"},
-      "geo":{"$ref" : "http://json-schema.org/geo"},
-      "tz":{
-         "type":"string"
-      },
-      "photo":{
-         "format":"image",
-         "type":"string"
-      },
-      "logo":{
-         "format":"image",
-         "type":"string"
-      },
-      "sound":{
-         "format":"attachment",
-         "type":"string"
-      },
-      "bday":{
-         "type":"string",
-         "format":"date"
-      },
-      "title":{
-         "type":"string"
-      },
-      "role":{
-         "type":"string"
-      },
-      "org":{
-         "type":"object",
-         "properties":{
-            "organizationName":{
-               "type":"string"
-            },
-            "organizationUnit":{
-               "type":"string"
-            }
-         }
-      }
-   }
-}`
+   
+	{
+	   "description":"A representation of a person, company, organization, or place",
+	   "type":"object",
+	   "properties":{
+	      "fn":{
+	         "description":"Formatted Name",
+	         "type":"string"
+	      },
+	      "familyName":{
+	         "type":"string",
+	         "required":true
+	      },
+	      "givenName":{
+	         "type":"string",
+	         "required":true
+	      },
+	      "additionalName":{
+	         "type":"array",
+	         "items":{
+	            "type":"string"
+	         }
+	      },
+	      "honorificPrefix":{
+	         "type":"array",
+	         "items":{
+	            "type":"string"
+	         }
+	      },
+	      "honorificSuffix":{
+	         "type":"array",
+	         "items":{
+	            "type":"string"
+	         }
+	      },
+	      "nickname":{
+	         "type":"string"
+	      },
+	      "url":{
+	         "type":"string",
+	         "format":"url"
+	      },
+	      "email":{
+	         "type":"object",
+	         "properties":{
+	            "type":{
+	               "type":"string"
+	            },
+	            "value":{
+	               "type":"string",
+	               "format":"email"
+	            }
+	         }
+	      },
+	      "tel":{
+	         "type":"object",
+	         "properties":{
+	            "type":{
+	               "type":"string"
+	            },
+	            "value":{
+	               "type":"string",
+	               "format":"phone"
+	            }
+	         }
+	      },
+	      "adr":{"$ref" : "http://json-schema.org/address"},
+	      "geo":{"$ref" : "http://json-schema.org/geo"},
+	      "tz":{
+	         "type":"string"
+	      },
+	      "photo":{
+	         "format":"image",
+	         "type":"string"
+	      },
+	      "logo":{
+	         "format":"image",
+	         "type":"string"
+	      },
+	      "sound":{
+	         "format":"attachment",
+	         "type":"string"
+	      },
+	      "bday":{
+	         "type":"string",
+	         "format":"date"
+	      },
+	      "title":{
+	         "type":"string"
+	      },
+	      "role":{
+	         "type":"string"
+	      },
+	      "org":{
+	         "type":"object",
+	         "properties":{
+	            "organizationName":{
+	               "type":"string"
+	            },
+	            "organizationUnit":{
+	               "type":"string"
+	            }
+	         }
+	      }
+	}
+	}
 
 ## What Was Done?
 
-JsonGraal 
-annotationFromSchema()
-Some Tests -- Currently all broken
+* JsonGraal -initial something
+* annotationFromSchema()
+* Some Tests -- Currently all broken
 
 ### Current Problems
+
  * This code was written by me, and I am very bad at Javascript
  * This will need to be totally rewritten to support arbitrary JSON. 
  * This will therfor also need to be rewritten to handle arbitrary JSON-Schema

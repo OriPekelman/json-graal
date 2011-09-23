@@ -7,8 +7,13 @@ I am no good at Javascript. So this should be considered as a Proof of Concept, 
 
 * And possibly JSON TO FORM Javascript bindings with a bunch of inference/generation
 
+
 _Note: No longer uses the *beta* data-link, as it is broken by design
+
 _Note: No longer uses the *beta* and totally broken jquery template. Long live handlebars_
+
+
+For an idea of what this does open  jsongraal/jsongraal.html in your favorite browser
 
 ## The reasons for this project are two fold: 
 

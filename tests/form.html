@@ -1,0 +1,247 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">    
+  <title>My Contacts - Linking Demo</title>
+
+  <script type="text/javascript" src="../vendor/jquery.js"></script>
+  <script type="text/javascript" src="../vendor/jquery.datalink.js"></script>
+  <script type="text/javascript" src="../vendor/handlebars.js"></script>
+  <script type="text/javascript" src="../vendor/jquery.global.js"></script>
+  <script type="text/javascript" src="../schemas/poco/localize.js"></script>
+  <script type="text/javascript" src="../schemas/poco/schema.js"></script>
+  <script type="text/javascript" src="../schemas/poco/sample_data.js"></script>
+  <script type="text/javascript" src="../vendor/js-traverse/index.js"></script>  
+
+  <script type="text/javascript" src="../jsongraal/jsongraal.js"></script>
+  <script type="text/javascript" src="../jsongraal/parseJsonSchema.js"></script>
+  <script type="text/javascript" src="../jsongraal/betterdatalink.js"></script>
+
+  <link rel="stylesheet" href="../vendor/qunit.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="../vendor/qunit.js"></script>
+</head>
+<body>
+<script>
+$(document).ready(function(){
+dataobject = {
+        input: "Hello input",
+        div: "Hello div",
+        div_too: "Hello div too",
+        checkbox: "Hello checkbox",
+        second_level{
+                input: "Hello input",
+                div: "Hello div",
+                div_too: "Hello div too",
+                checkbox: "Hello checkbox",
+        }
+        second_level_repeating: {
+                elements :{
+                input: "Hello input",
+                div: "Hello div",
+                div_too: "Hello div too",
+                checkbox: "Hello checkbox",}
+        }
+};
+
+QUnit.init( )
+module("Module JsonGraal");
+
+test("19  Inputs ", function() {
+  equals($("#html5 input").size(),19, "19 number of inputs" );
+});
+
+test("Better Data Link", function() {
+  bdl = new BetterDatalink();
+  dataobject = {elem1: "Hello Input"};
+  domelement = "#html5 [name=text]";
+  path = function (){"object.elem1;}
+  bdl.bind(domelement, path);
+  equals($(domelement).data("graal-path"),path, "Path Set Correctly" );
+});
+
+test("Value Set Correctly for input", function() {
+  bdl = new BetterDatalink();
+  dataobject = {elem1: "Hello input"};
+  domelement = "#html5 [name=text]";
+  path = "object.elem1";
+  bdl.bind(domelement, path);
+  bdl.setValue(domelement, dataobject);
+  equals($(domelement).data("graal-current-value"),"Hello input", "Value Set Correctly on data" );
+  equals($(domelement).val(),"Hello input", "Value Set Correctly on val" );
+});
+
+test("Value Set Correctly for checkbox", function() {
+        domelement = "#html5 [name=checkbox]";
+        
+        equals($(domelement).data("graal-current-value"),undefined, "Data on element is undefined" );
+        equals($(domelement).val(),"on", "By default the value of a checkbox is on" );
+        equals($(domelement).attr("checked"), undefined, "When a checkbox is unchecked, checked is undefined" );
+
+        bdl = new BetterDatalink();
+        dataobject = {elem1: "Hello checkbox"};
+        path = "object.elem1";
+        
+        bdl.bind(domelement, path);
+        bdl.setValue(domelement, dataobject);
+        equals($(domelement).data("graal-current-value"),"Hello checkbox", "Value Set Correctly for checbox" );
+        equals($(domelement).val(),"Hello checkbox", "Value Set Correctly for checkbox" );
+        equals($(domelement).attr("checked"), "checked", "The checkbox is checked when there is a value" );
+
+        domelement = "#html5 [name=checkboxchecked]";
+        
+        equals($(domelement).data("graal-current-value"),undefined, "Data on element is undefined" );
+        equals($(domelement).val(),"plop", "By default the value of a checkbox can be set in HTML" );
+        equals($(domelement).attr("checked"), "checked", "a checkbox can be set in HTML" );
+
+        bdl = new BetterDatalink();
+        dataobject = {elem1: "Hello checkbox"};
+        path = "object.elem1";
+        
+        bdl.bind(domelement, path);
+        bdl.setValue(domelement, dataobject);
+        equals($(domelement).data("graal-current-value"),"Hello checkbox", "Value Set Correctly for checbox" );
+        equals($(domelement).val(),"Hello checkbox", "Value Set Correctly for checkbox" );
+        equals($(domelement).attr("checked"), "checked", "The checkbox is checked when there is a value" );
+
+        });
+
+        test("Value Set Correctly for div", function() {
+                domelement = "#html5 #iamadiv";
+
+                equals($(domelement).data("graal-current-value"),undefined, "Data on element is undefined" );
+                equals($(domelement).val(), "", "By default the value of a div is \"\"" );
+
+                bdl = new BetterDatalink();
+                dataobject = {elem1: "Hello div"};
+                path = "object.elem1";
+
+                bdl.bind(domelement, path);
+                bdl.setValue(domelement, dataobject);
+                equals($(domelement).data("graal-current-value"),"Hello div", "Value Set Correctly for div" );
+                equals($(domelement).val(),"Hello div", "Value Set Correctly for div" );
+
+
+                domelement = "#html5 #iamadivtoo";
+
+                equals($(domelement).data("graal-current-value"),undefined, "Data on element is undefined" );
+                equals($(domelement).html(), "", "a div can be set in HTML" );
+
+                bdl = new BetterDatalink();
+                dataobject = {elem1: "Hello div too"};
+                path = "object.elem1";
+
+                bdl.bind(domelement, path);
+                bdl.setValue(domelement, dataobject);
+                equals($(domelement).data("graal-current-value"),"Hello div too", "Value Set Correctly for checbox" );
+                equals($(domelement).val(),"Hello div too", "Value Set Correctly for checkbox" );
+
+                });
+
+        $("#html5 #iamadivtoo").attr("contentEditable",true);
+    });
+  
+  
+
+
+
+  </script>
+
+  <h1 id="qunit-header">QUnit example</h1>
+ <h2 id="qunit-banner"></h2>
+ <div id="qunit-tesfieldsetunner-toolbar"></div>
+ <h2 id="qunit-userAgent"></h2>
+ <ol id="qunit-tests"></ol>
+ <div id="qunit-fixture">test markup, will be hidden</div>
+<div id="html5">
+    <form>
+    <fieldset>
+    <legend>text:</legend>
+    <input type="text" name="text" />
+    </fieldset>
+    <fieldset>
+    <legend>color:</legend>
+    <input type="color" name="color" />
+    </fieldset>
+    <fieldset>
+    <legend>date:</legend>
+    <input type="date" name="date" />
+    </fieldset>
+    <fieldset>
+    <legend>datetime:</legend>
+    <input type="datetime" name="datetime" />
+    </fieldset>
+    <fieldset>
+    <legend>datetime-local:</legend>
+    <input type="datetime-local" name="datetime-local" />
+    </fieldset>
+    <fieldset>
+    <legend>email:</legend>
+    <input type="email"  name="email" />
+    </fieldset>
+    <fieldset>
+    <legend>month:</legend>
+    <input type="month"  name="month" />
+    </fieldset>
+    <fieldset>
+    <legend>number:</legend>
+    <input type="number" name="number" />
+    </fieldset>
+    <fieldset>
+    <legend>range:</legend>
+    <input type="range" name="range" />
+    </fieldset>
+    <fieldset>
+    <legend>search:</legend>
+    <input type="search" name="search" />
+    </fieldset>
+    <fieldset>
+    <legend>tel:</legend>
+    <input type="tel" name="tel" />
+    </fieldset>
+    <fieldset>
+    <legend>time:</legend>
+    <input type="time" name="time" />
+    </fieldset>
+    <fieldset>
+    <legend>url:</legend>
+    <input type="url" name="url" />
+    </fieldset>
+    <fieldset>
+    <legend>week:</legend>
+    <input type="week" name="week" />
+    </fieldset>
+    <fieldset>
+    <legend>checkbox:</legend>
+    <input type="checkbox" name="checkbox"  />
+    <input type="checkbox" name="checkboxchecked" value="plop" checked="checked" />
+    </fieldset>
+    <fieldset>
+    <legend>radio:</legend>
+    <input type="radio" name="radio" value="1">First<br/>
+    <input type="radio" name="radio" value="2">Second<br/>
+    <input type="radio" name="radio" value="1">Third<br/>
+    </fieldset>
+    <fieldset>
+    <legend>select:</legend>
+    <select name="select">
+        <option value="1"> First</option>
+        <option value="2"> Second</option>
+        <option value="3"> Third</option>
+    </select>
+    </fieldset>
+    <fieldset>
+    <legend>textarea:</legend>
+    <textarea name="textarea" rows="7" cols="30"></textarea>
+    </fieldset>
+
+    <fieldset>
+    <legend>div:</legend>
+    <div id="iamadiv">Hello</div>
+    <div id="iamadivtoo"></div>
+    </fieldset>
+
+    </form>
+</div>
+
+</body>
+</html>

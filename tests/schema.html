@@ -1,0 +1,95 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
+  <title>My Contacts - Linking Demo</title>
+
+  <script type="text/javascript" src="../vendor/jquery.js"></script>
+  <script type="text/javascript" src="../vendor/jquery.datalink.js"></script>
+  <script type="text/javascript" src="../vendor/handlebars.js"></script>
+
+  <script type="text/javascript" src="../vendor/jquery.global.js"></script>
+
+  <script type="text/javascript" src="../jsongraal/parseJsonSchema.js"></script>
+  <script type="text/javascript" src="../schemas/poco/schema.js"></script>
+  <script type="text/javascript" src="../schemas/poco/sample_data.js"></script>
+
+</head>
+<body>
+<script>
+
+$(document).ready(function(){
+
+//	$("#results").append(JSON.stringify(annotationFromSchema(address)));
+//	$("#results").append(JSON.stringify(annotationFromSchema(card)));
+	$("#results").append(JSON.stringify(schemaFromAnnotation(poco)));
+});
+/*
+$(document).ready(function(){
+
+module("Module JsonGraal");
+var myJsonGraal = new JsonGraal();
+
+test("Zero Number of Inputs ", function() {
+  equals($(".entries input").size(),0, "zero number of inputs" );
+});
+
+
+test("Initial number of inputs", function() {
+        myJsonGraal.entries(entries);
+        myJsonGraal.refresh();
+  equals($(".entries input, .entries textarea").size(),852, "852 number of inputs" );
+});
+
+test("Adding a record", function() {
+        myJsonGraal.insert();
+        myJsonGraal.refresh();
+  equals($(".entries input, .entries textarea").size(),874, " After insert number of inputs" );
+});
+
+test("checking through modifying entries", function() {
+	entries[0].emails[0].primary=true;
+        myJsonGraal.refresh();
+	result = $("div.entries .entry:first .repeatingField:first div.emails div.email:first input:checkbox").attr("checked");
+  	equals(result ,"checked", " Modifying entries modifies dom" );
+});
+
+test("unchecking through modifying entries", function() {
+	entries[0].emails[0].primary=false;
+        myJsonGraal.refresh();
+	result = $("div.entries .entry:first .repeatingField:first div.emails div.email:first input:checkbox").attr("checked");
+  	equals(result ,undefined, " Modifying entries modifies dom" );
+});
+
+test("checking through clicking modified entries", function() {
+	$("div.entries .entry:first .repeatingField:first div.emails div.email:first input:checkbox").click();
+	result = entries[0].emails[0].primary;
+  	equals(result ,true, " Modifying dom modifies entries" );
+});
+
+test("unchecking through clicking modified entries", function() {
+	$("div.entries .entry:first .repeatingField:first div.emails div.email:first input:checkbox").click();
+	result = entries[0].emails[0].primary;
+  	equals(result ,false, " Modifying dom modifies entries" );
+});
+
+test("adding an email through clicking modified entries and dom", function() {
+	numofemails = entries[0].emails.length;
+	$("a.email-add.add:first").click();
+  	equals(numofemails + 1 ,entries[0].emails.length, " Modifying dom modifies entries" );
+});
+  });*/
+  </script>
+
+  <h1 id="qunit-header">QUnit example</h1>
+ <h2 id="qunit-banner"></h2>
+ <div id="qunit-testrunner-toolbar"></div>
+ <h2 id="qunit-userAgent"></h2>
+ <ol id="qunit-tests"></ol>
+ <div id="qunit-fixture">test markup, will be hidden</div>
+ <div class="entries">
+ </div>
+<pre id="results">
+</pre>
+</body>
+</html>

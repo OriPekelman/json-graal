@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
+  <title>My Contacts - Linking Demo</title>
+  <link type="text/css" rel="Stylesheet" href="jsongraal.css" />
+
+  <script type="text/javascript" src="../vendor/jquery.js"></script>
+  <script type="text/javascript" src="../vendor/jquery.datalink.js"></script>
+  <script type="text/javascript" src="../vendor/handlebars.js"></script>
+  <script type="text/javascript" src="../vendor/jquery.global.js"></script>
+  <script>module={};</script>
+  <script type="text/javascript" src="../vendor/js-traverse/index.js"></script>
+  <script type="text/javascript" src="../schemas/poco/localize.js"></script>
+  <script type="text/javascript" src="../schemas/poco/schema.js"></script>
+
+  <script type="text/javascript" src="../schemas/poco/sample_data.js"></script>
+  <script type="text/javascript" src="jsongraal.js"></script>
+  <script type="text/javascript" src="parseJsonSchema.js"></script>
+
+<script>
+ // initial view on load
+ jQuery( function( $ ){
+
+// schema = annotationFromSchema(calendar);
+ //schema =  annotationFromSchema(schemaFromAnnotation(poco));
+ schema =  poco;
+ 
+ 
+ myJsonGraal = new JsonGraal(
+	 {
+	        'schema'         : schema,
+	        'elements_root_class'    :    "entries",
+	        'elements_class'         :    "entry",
+	        'insert_element': "#insert",
+	        'save_element': "#save",
+ 	        'load_element': "#load",
+	    }
+	
+	);
+ myJsonGraal.entries(entries);
+ myJsonGraal.bindToDom(
+   
+   );
+ });
+
+
+
+ </script>
+</head>
+
+<body>
+    
+<div class="entries">
+</div>
+<input type="button" id="insert" value="Insert new entry" />
+<input type="button" id="save" value="show > " />
+<input type="button" id="load" value="load <" />
+<pre id="results">
+</pre>
+
+</body>
+</html>

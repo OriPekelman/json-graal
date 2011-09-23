@@ -1,0 +1,60 @@
+/*
+css adapted from:
+http://veerle.duoh.com/blog/comments/a_css_styled_table/
+*/
+  body { font-family: Futura, Helvetica, Verdana, sans-serif; }
+    a { display:block;
+        color: #6D929B;
+        border:1px solid lightgray;
+        background-color:lightgray;
+        text-decoration:none;      
+        border-radius: 15px;
+        padding:5px;  
+        margin:5px;
+        width:120px;
+        text-align:center;
+
+    }
+
+    a:hover{background-color:lightblue;} 
+    
+      div.entry {
+      border: 1px solid gray; 
+      margin:20px;           
+      border-radius: 15px; 
+      float:left;
+      width:400px;
+
+      padding:10px;
+        }
+        
+    .entries {
+        border-radius: 15px;
+        width:1000px;
+    }
+    .remove{
+            color:red;
+    }
+    .add{
+            color:green;
+    }
+    
+
+    label {margin-left:4px;display:inline-block;width: 150px;}
+    fieldset{border-radius:15px ; border:none}
+    
+    fieldset {   margin:4px; background-color:white}    
+    fieldset input { border-radius: 0;  margin:4px; background-color:white}        
+    
+    fieldset {   margin:4px; background-color:#EEE}    
+
+    
+    fieldset {        border:1px solid lightgray;}
+    fieldset div {display:inline;  border-radius:15px; background-color:#EEE       }
+      fieldset div div {display:block;  margin:4px ;         }
+        fieldset div div div{display:block;    }
+        
+    pre#results {display:block;position:absolute; left:1000px;top:0px; width:600px;background-color:gray;color:white; opacity: 0.5;}
+    input#insert {display:block;position:absolute; top:0px;  background-color:gray;color:white; opacity: 0.5;}
+    input#save {display:block;position:absolute; top:0px;left:600px;  background-color:gray;color:white; opacity: 0.5;}
+    input#load {display:block;position:absolute; top:0px; left:680px; background-color:gray;color:white; opacity: 0.5;}

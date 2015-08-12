@@ -1,3 +1,6 @@
+# [NOT MAINTAINED]
+
+
 # JsonGraal -- Call For Contributions
 This project aims to create javascript binding for JSON that would permit a round trip between a generated HTML form and a schema complying JSON document.
 
